@@ -1,6 +1,11 @@
+.app {
+  overflow-x: hidden;
+  max-width: 1400px;
+}
+
 .list {
-  width: 90%;
-  margin: auto;
+  width: 100%;
+  margin: 0 auto;
   max-width: 1200px;
   display: flex;
   justify-content: center;
@@ -9,15 +14,16 @@
   row-gap: 50px;
 }
 
+
+
 .header {
   height: 100px;
-  width: 90%;
+  width: 100%;
   margin: auto;
-  max-width: 1200px;
+  max-width: 1600px;
   padding: 5px;
   display: flex;
-  justify-content: space-between;
-
+  justify-content: space-around;
   align-items: center;
 }
 
@@ -30,13 +36,17 @@
   align-items: center;
 }
 
+
+
+.logo-image {
+  height: 50px;
+}
+
 .instructions {
-  margin-top: 50px;
   height: 150px;
   display: flex;
   justify-content: center;
-  width: 600px;
-  margin: auto;
+  margin: 50px auto;
   font-size: 30px;
   font-weight: 600;
   color: white;
@@ -176,4 +186,34 @@
   -moz-border-radius: 20px;
   border-radius: 20px;
   text-decoration: none;
+}
+
+
+@media only screen and (max-width: 500px) {
+  .logo {
+    font-size: 30px;
+  }
+
+  .logo-image {
+    height: 30px;
+  }
+
+  .connect-button {
+    font-size: 14px;
+  }
+}
+
+
+@media only screen and (max-width: 350px) {
+  .logo {
+    font-size: 25px;
+  }
+
+  .logo-image {
+    height: 25px;
+  }
+
+  .connect-button {
+    font-size: 12px;
+  }
 }

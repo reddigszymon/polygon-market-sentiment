@@ -4,7 +4,7 @@ import abi from "../abi.json";
 import { ethers } from "ethers";
 import { bigInt } from "big-integer";
 
-function Coin({ token }) {
+function Coin({ token, provider }) {
   const [color, setColor] = useState();
   const [perc, setPerc] = useState();
 
@@ -20,6 +20,7 @@ function Coin({ token }) {
     const provider = new ethers.providers.JsonRpcProvider(
       "https://rpc-mumbai.maticvigil.com/"
     );
+  
     const contract = new ethers.Contract(
       "0x9265676EEd8f5E5a265CC3c446d02f08421E227f",
       abi,
@@ -32,7 +33,32 @@ function Coin({ token }) {
     setPerc(percentage);
   };
 
-  const voteUp = async () => {};
+  const voteUp = async () => {
+    const signer = provider.getSigner();
+    const contract = new ethers.Contract(
+      "0x9265676EEd8f5E5a265CC3c446d02f08421E227f",
+      abi,
+      signer
+    );
+    const response = await contract.vote(token, true);
+    const receipt = await response.wait();
+    await grabTokenData()
+  };
+
+  const voteDown = async () => {
+    const signer = provider.getSigner();
+    const contract = new ethers.Contract(
+      "0x9265676EEd8f5E5a265CC3c446d02f08421E227f",
+      abi,
+      signer
+    );
+    const response = await contract.vote(token, false);
+    const receipt = await response.wait();
+    console.log("transaction has been mined")
+    await grabTokenData()
+    console.log("ui has been updated")
+
+  };
 
   useEffect(() => {
     grabTokenData();
@@ -63,7 +89,7 @@ function Coin({ token }) {
             <button className="button-up" onClick={() => voteUp()}>
               BULLISH
             </button>
-            <button className="button-down">BEARISH</button>
+            <button className="button-down" onClick={() => voteDown()}>BEARISH</button>
           </div>
         </div>
       )}
